@@ -2,6 +2,12 @@
 #define ROUTE_HPP
 
 #include <string>
+#include <list>
+#include "webserv.h"
+
+#define CONFIG_EXCEPTION public InvalidConfigException { \
+            const char * what() const noexcept; \
+        }
 
 class Route {
     private:
@@ -13,12 +19,21 @@ class Route {
         bool m_accept_upload;
         std::string m_uploaddir;
     public:
-        Route();
-        ~Route();
-        Route(const Route& other);
-        Route& operator=(const Route& other);
-        
+        Route() = delete;
+        Route(std::list<e_HTTP_methods> allowed_methods,
+        std::string location, bool dir_listing = false, std::string cgi, 
+        bool accept_upload = false, std::string upload_dir = "");
+        ~Route() = default;
+        Route(const Route& other) = default;
+        Route& operator=(const Route& other) = default;
+
         bool validate() const;
+        class InvalidConfigException : public std::exception {
+            const char * what() const noexcept;
+        };
+        class InvalidUploadException : CONFIG_EXCEPTION;
+        class InvalidLocation : CONFIG_EXCEPTION;
+        class InvalidMethods : CONFIG_EXCEPTION;
 };
 
 #endif
