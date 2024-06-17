@@ -32,10 +32,12 @@ class ServerConfig {
 
         class InvalidPathException : CONFIG_EXCEPTION;
         class InvalidNameException : CONFIG_EXCEPTION;
+        class InvalidServerException : CONFIG_EXCEPTION;
         class InvalidSizeLimitException : CONFIG_EXCEPTION;
         class InvalidRouteException : CONFIG_EXCEPTION;
         class InvalidPortException : CONFIG_EXCEPTION;
         class InvalidHostException : CONFIG_EXCEPTION;
+        class InvalidSettingException : CONFIG_EXCEPTION;
 };
 
 
