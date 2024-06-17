@@ -28,11 +28,8 @@ INC	=	$(wildcard $(INCLUDEDIR)*.hpp)
 
 ########    RULES    ########
 
-ifneq	"$(strip $(needs_made))" ""
 all: $(NAME)
-else
-all:;@echo "$(NAME) is up-to-date"
-endif
+
 
 $(NAME): $(OBJDIR) $(OBJ) $(INC)
 	@echo "$(NAMECOLOR)$(NAME) $(PIPECOLOR)| $(FILECOLOR)compiling executable: $(OUTCOLOR)$(NAME)$(RESET)"
