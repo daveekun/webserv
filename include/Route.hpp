@@ -3,9 +3,10 @@
 
 #include <string>
 #include <list>
+#include <exception>
 #include "webserv.h"
 
-#define CONFIG_EXCEPTION public InvalidConfigException { \
+#define ROUTE_CONFIG_EXCEPTION public std::exception { \
             const char * what() const noexcept; \
         }
 
@@ -21,19 +22,17 @@ class Route {
     public:
         Route() = delete;
         Route(std::list<e_HTTP_methods> allowed_methods,
-        std::string location, bool dir_listing = false, std::string cgi, 
-        bool accept_upload = false, std::string upload_dir = "");
+        std::string location,std::string cgi, 
+        std::string upload_dir = "",  bool dir_listing = false,
+        bool accept_upload = false);
         ~Route() = default;
         Route(const Route& other) = default;
         Route& operator=(const Route& other) = default;
 
         bool validate() const;
-        class InvalidConfigException : public std::exception {
-            const char * what() const noexcept;
-        };
-        class InvalidUploadException : CONFIG_EXCEPTION;
-        class InvalidLocation : CONFIG_EXCEPTION;
-        class InvalidMethods : CONFIG_EXCEPTION;
+        class InvalidUploadException : ROUTE_CONFIG_EXCEPTION;
+        class InvalidLocation : ROUTE_CONFIG_EXCEPTION;
+        class InvalidMethods : ROUTE_CONFIG_EXCEPTION;
 };
 
 #endif
