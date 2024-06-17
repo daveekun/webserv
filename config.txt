@@ -1,0 +1,8 @@
+server {
+    name: stupid,
+    location: "/var/www",
+    route: /test/ {
+        methods: GET POST,
+        location: /html
+    }
+}
